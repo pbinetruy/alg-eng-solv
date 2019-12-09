@@ -1,0 +1,58 @@
+uk.graph.dimacs                                   2626
+karate.graph.dimacs                               14
+dolphins.graph.dimacs                             34
+chesapeake.graph.dimacs                           22
+adjnoun.graph.dimacs                              59
+polbooks.graph.dimacs                             62
+football.graph.dimacs                             94
+celegans_metabolic.graph.dimacs                   249
+jazz.graph.dimacs                                 158
+netscience.graph.dimacs                           899
+email.graph.dimacs                                594
+add20.graph.dimacs                                1265
+power.graph.dimacs                                2203
+add32.graph.dimacs                                2674
+3elt.graph.dimacs                                 Time limit exceeded
+data.graph.dimacs                                 2161
+polblogs.graph.dimacs                             560
+PGPgiantcompo.graph.dimacs                        4342
+whitaker3.graph.dimacs                            Time limit exceeded
+crack.graph.dimacs                                5637
+fe_4elt2.graph.dimacs                             Time limit exceeded
+as-22july06.graph.dimacs                          3303
+cs4.graph.dimacs                                  Time limit exceeded
+4elt.graph.dimacs                                 Time limit exceeded
+cond-mat.graph.dimacs                             9436
+cti.graph.dimacs                                  Time limit exceeded
+memplus.graph.dimacs                              10072
+fe_sphere.graph.dimacs                            10924
+wing_nodal.graph.dimacs                           Time limit exceeded
+t60k.graph.dimacs                                 30288
+astro-ph.graph.dimacs                             10230
+wing.graph.dimacs                                 Time limit exceeded
+fe_pwt.graph.dimacs                               27209
+vibrobox.graph.dimacs                             Time limit exceeded
+fe_body.graph.dimacs                              31336
+cond-mat-2005.graph.dimacs                        23106
+bcsstk33.graph.dimacs                             8226
+finan512.graph.dimacs                             46592
+bcsstk29.graph.dimacs                             12642
+brack2.graph.dimacs                               41214
+fe_ocean.graph.dimacs                             71724
+fe_tooth.graph.dimacs                             50343
+smallworld.graph.dimacs                           Time limit exceeded
+G_n_pin_pout.graph.dimacs                         Time limit exceeded
+bcsstk31.graph.dimacs                             32100
+caidaRouterLevel.graph.dimacs                     75095
+fe_rotor.graph.dimacs                             Time limit exceeded
+598a.graph.dimacs                                 Time limit exceeded
+coAuthorsCiteseer.graph.dimacs                    129193
+bcsstk32.graph.dimacs                             41642
+bcsstk30.graph.dimacs                             27141
+coAuthorsDBLP.graph.dimacs                        155618
+wave.graph.dimacs                                 Time limit exceeded
+144.graph.dimacs                                  Time limit exceeded
+citationCiteseer.graph.dimacs                     118115
+m14b.graph.dimacs                                 Time limit exceeded
+cnr-2000.graph.dimacs                             95521
+auto.graph.dimacs                                 Time limit exceeded

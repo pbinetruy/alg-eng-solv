@@ -1,0 +1,27 @@
+201912012213_run_history
+run random instances python3 vertex_cover_solver.py (Tab-separated columns: File, Time in seconds, solution size, recursive steps, first lower bound difference, high degree rules, degree zero rules, extreme reduction rules, degree one rules, degree two rules, domination rules, lower bounds, finished, solution size verified)
+random_small/000002_000000000002.input	0.03s	0	0	0	0	0	0	0	0	0	0	1	correct
+random_small/000026_000000000260.input	0.04s	25	0	0	0	1	0	1	0	0	0	1	correct
+random_small/000070_000000000084.input	0.03s	12	0	0	0	1	0	1	0	0	0	1	correct
+random_small/000085_000000000850.input	0.46s	82	1	-2	1	3	0	1	1	0	1	1	correct
+random_small/000100_000000001000.input	0.05s	96	1	1	0	2	0	2	1	0	1	1	correct
+random_small/000300_000000003000.input	1.02s	296	1	-32	1	2	0	1	88	0	1	1	correct
+random_small/000400_000000004000.input	5.62s	396	1	-43	1	2	0	1	128	0	1	1	correct
+random_small/000500_000000005000.input	18.99s	498	1	-53	1	2	0	1	200	0	1	1	correct
+random_small/000800_000000008000.input	150.36s	796	1	-74	1	2	0	1	403	0	1	1	correct
+random_small/000900_000000002700.input	86.61s	872	14	433	4	9	0	6	665	0	1	1	correct
+random_small/001000_000000006000.input	s	0										0	
+run dimacs instances python3 vertex_cover_solver.py (Tab-separated columns: File, Time in seconds, solution size, recursive steps, first lower bound difference, high degree rules, degree zero rules, extreme reduction rules, degree one rules, degree two rules, domination rules, lower bounds, finished, solution size verified)
+dimacs_small/karate.graph.dimacs	0.03s	14	1	0	0	3	0	2	7	0	1	1	correct
+dimacs_small/dolphins.graph.dimacs	0.04s	34	4	8	0	6	0	5	15	0	2	1	correct
+dimacs_small/adjnoun.graph.dimacs	0.05s	59	10	16	0	14	1	10	56	0	4	1	correct
+dimacs_small/polbooks.graph.dimacs	0.09s	62	22	38	3	20	2	9	129	0	4	1	correct
+dimacs_small/football.graph.dimacs	90.27s	94	24775	67	366	16788	210	3882	20478	0	11965	1	correct
+dimacs_small/email.graph.dimacs	0.93s	594	106	215	0	163	0	79	1979	0	49	1	
+dimacs_small/polblogs.graph.dimacs	0.56s	560	11	160	1	25	1	12	1033	0	7	1	correct
+run snap instances python3 vertex_cover_solver.py (Tab-separated columns: File, Time in seconds, solution size, recursive steps, first lower bound difference, high degree rules, degree zero rules, extreme reduction rules, degree one rules, degree two rules, domination rules, lower bounds, finished, solution size verified)
+snap_small/as20000102.txt.dimacs	0.40s	1052	1	240	0	3	0	2	169	0	1	1	correct
+snap_small/email-Eu-core.txt.dimacs	54.84s	579	2034	300	1	2259	1	1040	12848	0	979	1	correct
+snap_small/p2p-Gnutella08.txt.dimacs	0.98s	2054	1	45	1	4	0	2	877	0	1	1	correct
+snap_small/p2p-Gnutella06.txt.dimacs	15.98s	3405	17	902	16	36	0	18	9658	0	16	1	correct
+snap_small/p2p-Gnutella04.txt.dimacs	14.01s	4348	9	1026	1	20	0	10	5705	0	8	1	correct
