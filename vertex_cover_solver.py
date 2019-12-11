@@ -121,7 +121,7 @@ my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows = mipP
 prob = cplex.Cplex()
 
 #To avoid printing the summary of the cplex resolution
-prob.set_results_stream(None).
+prob.set_results_stream(None)
 
 prob.objective.set_sense(prob.objective.sense.minimize)
 
