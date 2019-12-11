@@ -81,7 +81,7 @@ def print_result(vertices):
 
 
 get_data()
-print (g)
+print ("#", g)
 
 
 
@@ -115,4 +115,21 @@ def mipParam():
                 rows.append([[vertex,neigh],[1,1]])
     return my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows
 
-print(mipParam())
+
+my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows = mipParam()
+
+prob = cplex.Cplex()
+
+prob.objective.set_sense(prob.objective.sense.minimize)
+
+prob.variables.add(obj=my_obj, ub=my_ub, types=my_ctype, names=my_colnames)
+
+prob.linear_constraints.add(lin_expr=rows, senses=my_sense, rhs=my_rhs, names=my_rownames)
+
+prob.solve()
+
+# solution.get_status() returns an integer code
+print("#Solution status = ", prob.solution.get_status(), ":", end=' ')
+# the following line prints the corresponding string
+print("#", prob.solution.status[prob.solution.get_status()])
+print("#Solution value  = ", prob.solution.get_objective_value())
