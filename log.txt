@@ -89251,3 +89251,91 @@ snap_small/p2p-Gnutella06.txt.dimacs
 
 snap_small/p2p-Gnutella04.txt.dimacs
 
+random/000002_000000000002.input
+#solution size: 0
+#recursive steps: 0
+#first lower bound difference: 0
+#high degree rules: 0
+#degree zero rules: 0
+#extreme reduction rules: 0
+#degree one rules: 0
+#degree two rules: 0
+#domination rules: 0
+#lower bounds: 0
+
+random/000002_000000000006.input
+Traceback (most recent call last):
+  File "vertex_cover_solver.py", line 575, in <module>
+    vc()
+  File "vertex_cover_solver.py", line 548, in vc
+    S_kern, _, _, _ = kernalization(nb_vertices - 1, vc_branch.counter)
+  File "vertex_cover_solver.py", line 482, in kernalization
+    S_kern_two, undelete_two, unmerge, k = degree_two_rule(k)
+  File "vertex_cover_solver.py", line 440, in degree_two_rule
+    S_kern_new, undelete_new, k = extreme_reduction_rule(k)
+  File "vertex_cover_solver.py", line 298, in extreme_reduction_rule
+    S_kern, undelete, k = high_degree_rule(k)
+  File "vertex_cover_solver.py", line 266, in high_degree_rule
+    while k >= 0 and max_degree > k:
+TypeError: '>=' not supported between instances of 'list' and 'int'
+
+random/000002_000000000012.input
+Traceback (most recent call last):
+  File "vertex_cover_solver.py", line 575, in <module>
+    vc()
+  File "vertex_cover_solver.py", line 548, in vc
+    S_kern, _, _, _ = kernalization(nb_vertices - 1, vc_branch.counter)
+  File "vertex_cover_solver.py", line 482, in kernalization
+    S_kern_two, undelete_two, unmerge, k = degree_two_rule(k)
+  File "vertex_cover_solver.py", line 440, in degree_two_rule
+    S_kern_new, undelete_new, k = extreme_reduction_rule(k)
+  File "vertex_cover_solver.py", line 298, in extreme_reduction_rule
+    S_kern, undelete, k = high_degree_rule(k)
+  File "vertex_cover_solver.py", line 266, in high_degree_rule
+    while k >= 0 and max_degree > k:
+TypeError: '>=' not supported between instances of 'list' and 'int'
+
+random/000002_000000000020.input
+Traceback (most recent call last):
+  File "vertex_cover_solver.py", line 575, in <module>
+    vc()
+  File "vertex_cover_solver.py", line 548, in vc
+    S_kern, _, _, _ = kernalization(nb_vertices - 1, vc_branch.counter)
+  File "vertex_cover_solver.py", line 482, in kernalization
+    S_kern_two, undelete_two, unmerge, k = degree_two_rule(k)
+  File "vertex_cover_solver.py", line 435, in degree_two_rule
+    if k - 1 < 0: return S_kern, undelete, unmerge, k - 1
+TypeError: unsupported operand type(s) for -: 'list' and 'int'
+
+random/000004_000000000004.input
+#solution size: 0
+#recursive steps: 0
+#first lower bound difference: 0
+#high degree rules: 0
+#degree zero rules: 0
+#extreme reduction rules: 0
+#degree one rules: 0
+#degree two rules: 0
+#domination rules: 0
+#lower bounds: 0
+
+random/000004_000000000012.input
+random/000002_000000000002.input
+1
+
+random/000002_000000000006.input
+1
+
+random/000002_000000000012.input
+1
+
+random/000002_000000000020.input
+1
+
+random/000004_000000000004.input
+1
+
+random/000004_000000000012.input
+1
+
+random/000004_000000000024.input
