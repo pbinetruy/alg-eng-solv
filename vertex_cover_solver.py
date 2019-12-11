@@ -85,11 +85,11 @@ print (g)
 
 
 
-def mipParam ():
+def mipParam():
     """
     INPUT: NONE
     Under the assumption that all lists of neighbors are correctly updated, returns all the necessary objects to run CPLEX
-    OUTPUT: my_obj, my_ub, my_lb, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows
+    OUTPUT: my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows
     """
     global nb_vertices
     global nb_edges
@@ -111,5 +111,8 @@ def mipParam ():
         my_colnames.append(vertex)
         for neigh in g[vertex][2]:
             if neigh > vertex:
-                my_rownames.append("")
-    return
+                my_rownames.append("e %s %s" % (vertex,neigh))
+                rows.append([[vertex,neigh],[1,1]])
+    return my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows
+
+print(mipParam())
