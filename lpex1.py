@@ -1,4 +1,3 @@
-execfile("cplexpypath.py")
 import cplex
 from cplex.exceptions import CplexError
 import sys
