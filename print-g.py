@@ -61,5 +61,5 @@ def get_data():
         degree = g[vertex][1]
         # Append vertex to the list located at its degree in degree_list:
         degree_list[degree].append(vertex)
-getdata()
+get_data()
 print (g)
