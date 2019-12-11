@@ -78,6 +78,13 @@ def print_result(vertices):
     for vertex in vertices:
         print(vertex)
 
+
+
+get_data()
+print (g)
+
+
+
 def mipParam ():
     """
     INPUT: NONE
