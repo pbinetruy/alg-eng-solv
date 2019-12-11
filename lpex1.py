@@ -7,7 +7,7 @@ my_ub = [40.0, cplex.infinity, cplex.infinity]
 my_colnames = ["x1", "x2", "x3"]
 my_rhs = [20.0, 30.0]
 my_rownames = ["c1", "c2"]
-my_sense = "LL"
+my_sense = "LG"
 def populatebyrow(prob):
     prob.objective.set_sense(prob.objective.sense.maximize)
     # since lower bounds are all 0.0 (the default), lb is omitted here
