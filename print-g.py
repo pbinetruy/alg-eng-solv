@@ -1,10 +1,4 @@
-from __future__ import print_function
-
 import sys
-
-import cplex
-from cplex.exceptions import CplexError
-
 
 g = {}
 max_degree = 0
@@ -68,41 +62,4 @@ def get_data():
         # Append vertex to the list located at its degree in degree_list:
         degree_list[degree].append(vertex)
 
-
-def print_result(vertices):
-    """
-    INPUT: vertices is list : vertices
-    print_result prints every given vertex in a new line
-    OUTPUT: None
-    """
-    for vertex in vertices:
-        print(vertex)
-
-def mipParam ():
-    """
-    INPUT: NONE
-    Under the assumption that all lists of neighbors are correctly updated, returns all the necessary objects to run CPLEX
-    OUTPUT: my_obj, my_ub, my_lb, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows
-    """
-    global nb_vertices
-    global nb_edges
-    #Objective function is sum with all factors set to 1
-    my_obj = [1]*nb_vertices
-    #all variables bounded by 0 (default) and 1
-    my_ub = [1]*nb_vertices
-    #All variables are integers
-    my_ctype = 'I'*nb_vertices
-    #each edge is a greater-than 1 constraint 
-    my_rhs = [1]*nb_edges
-    my_sense = 'G'*nb_edges
-    #name of the vertices and of the columns are left to fill
-    my_colnames = []
-    my_rownames = []
-    #Actual rows are going to be filled during the for loop
-    rows = []
-    for vertex in g:
-        my_colnames.append
-        for neigh in g[vertex][2]:
-            if neigh > vertex:
-                
-    return
+print (g)
