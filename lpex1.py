@@ -106,7 +106,7 @@ else:
     r : populate by rows
     c : populate by columns
     n : populate by nonzeros\n ? > """
-    r = ’r’
-    c = ’c’
-    n = ’n’
+    r = 'r'
+    c = 'c'
+    n = 'n' 
     lpex1(input(prompt))
