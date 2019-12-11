@@ -128,8 +128,18 @@ prob.linear_constraints.add(lin_expr=rows, senses=my_sense, rhs=my_rhs, names=my
 
 prob.solve()
 
-# solution.get_status() returns an integer code
-print("#Solution status = ", prob.solution.get_status(), ":", end=' ')
-# the following line prints the corresponding string
-print("#", prob.solution.status[prob.solution.get_status()])
-print("#Solution value  = ", prob.solution.get_objective_value())
+# # solution.get_status() returns an integer code
+# print("#Solution status = ", prob.solution.get_status(), ":", end=' ')
+# # the following line prints the corresponding string
+# print("#", prob.solution.status[prob.solution.get_status()])
+# print("#Solution value  = ", prob.solution.get_objective_value())
+
+numcols = prob.variables.get_num()
+numrows = prob.linear_constraints.get_num()
+
+slack = prob.solution.get_linear_slacks()
+x = prob.solution.get_values()
+
+for j in range(numcols):
+    if x[j] == 1:
+        print(my_colnames[j])
