@@ -124,7 +124,7 @@ def vc_cplex():
     prob.set_results_stream(None)
     prob.parameters.workmem = 1536
     #prob.parameters.mip.tolerances.mipgap = 1e-08
-    prob.parameters.mip.tolerances.absmipgap = 1e-08
+    prob.parameters.mip.tolerances.absmipgap = 1e-15
     #fill the CPLEX problem with all correct parameters
     prob.objective.set_sense(prob.objective.sense.minimize)
     prob.variables.add(obj=my_obj, ub=my_ub, types=my_ctype, names=my_colnames)
