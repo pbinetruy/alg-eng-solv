@@ -120,8 +120,10 @@ def vc_cplex():
     my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows = mipParam()
     #initialize the CPLEX problem
     prob = cplex.Cplex()
-    #To avoid printing the summary of the cplex resolution
+    #To avoid printing the summary of the cplex resolution, to limit memory usage to 1.5GB and get more precise results on big graphs
     prob.set_results_stream(None)
+    prob.parameters.workmem(1536)
+    prob.parameters.mip.tolerances.mipgap(1e-08)
     #fill the CPLEX problem with all correct parameters
     prob.objective.set_sense(prob.objective.sense.minimize)
     prob.variables.add(obj=my_obj, ub=my_ub, types=my_ctype, names=my_colnames)
