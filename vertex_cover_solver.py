@@ -78,12 +78,7 @@ def print_result(vertices):
     for vertex in vertices:
         print(vertex)
 
-
-
 get_data()
-print ("#", g)
-
-
 
 def mipParam():
     """
@@ -115,34 +110,30 @@ def mipParam():
                 rows.append([[vertex,neigh],[1,1]])
     return my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows
 
+def vc_cplex():
+    """
+    INPUT: None
+    prints the vertex cover corresponding to global g using cplex solver
+    OUTPUT: None
+    """
+    #get parameters of the CPLEX problem
+    my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows = mipParam()
+    #initialize the CPLEX problem
+    prob = cplex.Cplex()
+    #To avoid printing the summary of the cplex resolution
+    prob.set_results_stream(None)
+    #fill the CPLEX problem with all correct parameters
+    prob.objective.set_sense(prob.objective.sense.minimize)
+    prob.variables.add(obj=my_obj, ub=my_ub, types=my_ctype, names=my_colnames)
+    prob.linear_constraints.add(lin_expr=rows, senses=my_sense, rhs=my_rhs, names=my_rownames)
+    #Solve the CPLEX problem
+    prob.solve()
+    #print the solution 
+    numcols = prob.variables.get_num()
+    x = prob.solution.get_values()
+    for j in range(numcols):
+        if x[j] == 1:
+            print(my_colnames[j])
 
-my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows = mipParam()
 
-prob = cplex.Cplex()
-
-#To avoid printing the summary of the cplex resolution
-prob.set_results_stream(None)
-
-prob.objective.set_sense(prob.objective.sense.minimize)
-
-prob.variables.add(obj=my_obj, ub=my_ub, types=my_ctype, names=my_colnames)
-
-prob.linear_constraints.add(lin_expr=rows, senses=my_sense, rhs=my_rhs, names=my_rownames)
-
-prob.solve()
-
-# # solution.get_status() returns an integer code
-# print("#Solution status = ", prob.solution.get_status(), ":", end=' ')
-# # the following line prints the corresponding string
-# print("#", prob.solution.status[prob.solution.get_status()])
-# print("#Solution value  = ", prob.solution.get_objective_value())
-
-numcols = prob.variables.get_num()
-numrows = prob.linear_constraints.get_num()
-
-slack = prob.solution.get_linear_slacks()
-x = prob.solution.get_values()
-
-for j in range(numcols):
-    if x[j] == 1:
-        print(my_colnames[j])
+vc_cplex()
