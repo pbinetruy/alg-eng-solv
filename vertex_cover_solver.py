@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import sys
+import time
 
 import cplex
 from cplex.exceptions import CplexError
@@ -80,6 +81,142 @@ def print_result(vertices):
 
 get_data()
 
+def is_edgeless():
+    """
+    INPUT: None
+    is_edgeless returns True if the graph doesn't have any undeleted edges and False otherwise
+    OUTPUT: True or False
+    """
+    return max_degree == 0
+
+
+def del_vert(vertices):
+    """
+    INPUT: vertices is list : vertices to 'delete'
+    del_vert 'deletes' the given vertices and updates the number of edges of all adjacent vertices
+    """
+    global max_degree
+    global degree_list
+    global nb_vertices
+    global nb_edges
+    for vertex in vertices:
+        # 'Delete' vertex:
+        ###Deleting in g
+        g[vertex][0] = True
+        nb_vertices -= 1
+        ###Deleting in degree_list and updating nb_edges
+        degree_vertex = g[vertex][1]
+        nb_edges -= degree_vertex
+        degree_list[degree_vertex].remove(vertex)
+        # Update number of edges on adjacent vertices:
+        for adj_vert in g[vertex][2]:
+            ###Updating g
+            g[adj_vert][1] -= 1
+            if not g[adj_vert][0]:
+                ###Updating degree_list
+                degree_adj_vert = g[adj_vert][1]
+                degree_list[degree_adj_vert+1].remove(adj_vert)
+                degree_list[degree_adj_vert].append(adj_vert)
+    #If max_degree is obsolete, go through all degrees decreasing from max_degree to find the new value
+    while (max_degree > 0) & (degree_list[max_degree] == []):
+        max_degree -= 1
+
+
+
+def really_del_vert(vertices):
+    """
+    INPUT: vertices is list : vertices to 'delete'
+    del_vert 'deletes' the given vertices and updates the number of edges of all adjacent vertices
+    """
+    for vertex in vertices:
+        if not g[vertex][0]: del_vert([vertex])
+        for adj_vert in g[vertex][2]:
+            g[adj_vert][2].remove(vertex)
+        del g[vertex]
+
+
+def degree_zero_rule(really=True):
+    """
+    INPUT: None
+    degree_zero_rule deletes all degree zero vertices and returns them
+    OUTPUT: list
+    """
+    if degree_list[0] != []:
+        degree_zero_rule.counter += 1
+        undelete = degree_list[0][:]
+        if really: really_del_vert(undelete)
+    else: undelete = []
+    return undelete
+
+
+
+def get_neighbor(vertex):
+    """
+    INPUT: vertex is str
+    get_neighbor returns the first neighbor
+    OUTPUT: str
+    """
+    for neighbor in g[vertex][2]:
+        if not g[neighbor][0]:
+            return neighbor
+
+
+def get_degree_one_neighbors():
+    """
+    INPUT: None
+    get_degree_one_neighbors return the neighbors of all vertices of degree one
+    (if two vertices of degree one are adjacent to each other, it choses one of them)
+    OUTPUT: list
+    """
+    # Initialize list of neighbors of vertices with one degree:
+    neighbors = []
+    # Iterate through all vertices of degree one and append its neighbor to the list (if not added already):
+    for vertex in degree_list[1]:
+        if vertex not in neighbors:
+            neighbor = get_neighbor(vertex)
+            if neighbor not in neighbors:
+                neighbors.append(neighbor)
+    return neighbors
+
+
+
+def degree_one_rule(really=True):
+    """
+    INPUT: k is int 
+    degree_one_rule deletes all degree one vertices and returns them, deletes all 
+    of their neighbors and return them to add them to S. also returns the depth budget k changed by deletion
+    OUTPUT: S_kern is list of vertices, undeleteis list of vertices, k is int
+    """
+    S_kern, undelete = [],[]
+    while degree_list[1] != []:
+        degree_one_rule.counter += 1
+        # Get neighbors of vertices with degree one (if two are adjacent to each other, only one of them):
+        degree_one_neighbors = get_degree_one_neighbors()
+        S_kern += degree_one_neighbors
+        # 'Delete' neighbors of degree one vertices:
+        if really: really_del_vert(degree_one_neighbors)
+    return S_kern, undelete
+
+
+
+def kernalization():
+    """
+    INPUT: 
+    kernalization applies all the kernelization rules
+    OUTPUT: S_kern is list of vertices
+    """
+    kernalization.counter += 1
+    # Execute reduction rules:
+    degree_zero_rule()
+    S_kern, _ = degree_one_rule()
+    # S_kern_two, _, _ = degree_two_rule()
+    # S_kern += S_kern_two
+    # S_kern_dom, _ = domination_rule()
+    # S_kern += S_kern_dom
+    return S_kern
+
+
+
 def mipParam():
     """
     INPUT: NONE
@@ -116,6 +253,22 @@ def vc_cplex():
     prints the vertex cover corresponding to global g using cplex solver
     OUTPUT: None
     """
+    degree_zero_rule.counter = 0
+    degree_one_rule.counter = 0
+    # degree_two_rule.counter = 0
+    # domination_rule.counter = 0
+    kernalization.counter = 0
+    S = []
+    ###### Kernelization
+    start_kern = time.time()
+    if not is_edgeless():
+        while True:
+            S_kern = kernalization()
+            if S_kern == []: break
+            S += S_kern
+    print_result(S)
+    ###### CPLEX
+    start_cplex = time.time()
     #get parameters of the CPLEX problem
     my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows = mipParam()
     #initialize the CPLEX problem
@@ -123,8 +276,8 @@ def vc_cplex():
     #To avoid printing the summary of the cplex resolution, to limit memory usage to 1.5GB and get more precise results on big graphs
     prob.set_results_stream(None)
     prob.parameters.workmem = 1536
-    prob.parameters.mip.tolerances.mipgap = 1e-15
-    prob.parameters.mip.tolerances.absmipgap = 1e-15
+    # prob.parameters.mip.tolerances.mipgap = 1e-15
+    # prob.parameters.mip.tolerances.absmipgap = 1e-15
     #fill the CPLEX problem with all correct parameters
     prob.objective.set_sense(prob.objective.sense.minimize)
     prob.variables.add(obj=my_obj, ub=my_ub, types=my_ctype, names=my_colnames)
@@ -137,6 +290,10 @@ def vc_cplex():
     for j in range(numcols):
         if x[j] == 1:
             print(my_colnames[j])
-
+    end = time.time()
+    print("#Kern timing: %s" % (start_cplex-start_kern))
+    print("#Cplex timing: %s" % (end-start_cplex))   
+    print("#degree zero rules: %s" % degree_zero_rule.counter)
+    print("#degree one rules: %s" % degree_one_rule.counter) 
 
 vc_cplex()
