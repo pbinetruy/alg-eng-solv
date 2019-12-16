@@ -244,7 +244,6 @@ def get_all_neighbors(vertex):
     return neighbors
 
 
-
 def merge_vert(vertex, u, w):
     """
     INPUT: vertex of degree 2, and its two neighbors u and w
@@ -256,7 +255,7 @@ def merge_vert(vertex, u, w):
     global degree_list
     global max_degree
     merged_point = (vertex, u, w)
-    really_del_vert([vertex, u, w])
+    del_vert([vertex, u, w])
     if merged_point in g:
         un_del_vert([merged_point])
         return merged_point
@@ -288,11 +287,12 @@ def degree_two_rule():
         vertex = degree_list[2][0]
         [u, w] = get_all_neighbors(vertex)
         if w in g[u][2]:
-            del_vert([vertex, u, w])
+            really_del_vert([vertex, u, w])
             S_kern += [u, w]
         else:
             merged_point = merge_vert(vertex, u, w)
             S_kern.append(vertex)
+            really_del_vert([vertex, u, v])
     return S_kern
 
 
@@ -410,9 +410,6 @@ def vc_cplex():
             S_kern = kernalization()
             if S_kern == []: break
             S += S_kern
-    correct_output(S)
-    print_result(S)
-    print('##################################')
     ###### CPLEX
     start_cplex = time.time()
     if not is_edgeless():
@@ -434,12 +431,11 @@ def vc_cplex():
         #print the solution 
         numcols = prob.variables.get_num()
         x = prob.solution.get_values()
-        S_mip = []
         for j in range(numcols):
             if x[j] == 1:
-                S_mip.append(my_colnames[j])
-        correct_output(S_mip)
-        print_result(S_mip)
+                S.append(my_colnames[j])
+        correct_output(S)
+        print_result(S)
     end = time.time()
     print("#Kern timing: %s" % (start_cplex-start_kern))
     print("#Cplex timing: %s" % (end-start_cplex))   
