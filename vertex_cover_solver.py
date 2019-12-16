@@ -292,7 +292,7 @@ def degree_two_rule():
         else:
             merged_point = merge_vert(vertex, u, w)
             S_kern.append(vertex)
-            really_del_vert([vertex, u, v])
+            really_del_vert([vertex, u, w])
     return S_kern
 
 
