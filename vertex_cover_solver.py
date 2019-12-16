@@ -122,6 +122,40 @@ def del_vert(vertices):
         max_degree -= 1
 
 
+def un_del_vert(vertices):
+    """
+    INPUT: vertices is list : vertices to 'undelete'
+    un_del_vert 'undeletes' the given vertices and updates the number of edges of all adjacent vertices
+    """
+    global max_degree
+    global degree_list
+    global nb_vertices
+    global nb_edges
+    for vertex in vertices:
+        # 'Undelete' vertex:
+        ###Undeleting in g
+        g[vertex][0] = False
+        nb_vertices += 1
+        ###Undeleting in degree_list and updating nb_edges
+        degree_vertex = g[vertex][1]
+        nb_edges += degree_vertex
+        degree_list[degree_vertex].append(vertex)
+        # If the vertex has a higher degree than max_degree, we update max_degree
+        if g[vertex][1] > max_degree:
+            max_degree = g[vertex][1]
+        # Update number of edges on adjacent vertices:
+        for adj_vert in g[vertex][2]:
+            ###Updating g
+            g[adj_vert][1] += 1
+            if not g[adj_vert][0]:
+                ###Updating degree_list
+                degree_adj_vert = g[adj_vert][1]
+                degree_list[degree_adj_vert-1].remove(adj_vert)
+                degree_list[degree_adj_vert].append(adj_vert)
+                #If the neighbor has after undeletion a higher degree than max degree we update it
+                if g[adj_vert][1] > max_degree:
+                    max_degree = g[adj_vert][1]
+
 
 def really_del_vert(vertices):
     """
@@ -198,6 +232,100 @@ def degree_one_rule(really=True):
     return S_kern, undelete
 
 
+def get_all_neighbors(vertex):
+    """
+    INPUT: vertex
+    get_neighbor returns the first neighbor
+    OUTPUT: list of vertices
+    """
+    neighbors = []
+    for neighbor in g[vertex][2]:
+        if not g[neighbor][0]: neighbors.append(neighbor)
+    return neighbors
+
+
+
+def merge_vert(vertex, u, w):
+    """
+    INPUT: vertex of degree 2, and its two neighbors u and w
+    to use only if vertex has degree 2 and there is no edge between u and w
+    merges vertex and its 2 neighbors, but doesn't change k 
+    OUTPUT: the name of the resulting merged_point
+    """
+    global nb_vertices
+    global degree_list
+    global max_degree
+    merged_point = (vertex, u, w)
+    del_vert([vertex, u, w])
+    if merged_point in g:
+        un_del_vert([merged_point])
+        return merged_point
+    #add merged vertex and delete vertex and its neighbors
+    add_vertex(merged_point)
+    nb_vertices += 1
+    #add edges towards every neighbor only once 
+    for z in [u, w]:
+        for n in g[z][2]:
+            if n not in g[merged_point][2]:
+                if not g[n][0]:
+                    add_edge([merged_point, n])
+                    n_degree = g[n][1]
+                    degree_list[n_degree-1].remove(n)
+                    degree_list[n_degree].append(n)
+                else:
+                    #add edge in dictionary
+                    g[merged_point][2].append(n)
+                    g[n][2].append(merged_point)
+                    g[n][1] += 1
+    degree_list[g[merged_point][1]].append(merged_point)
+    return merged_point
+
+def degree_two_rule():
+    S_kern = []
+    if max_degree < 2: return S_kern
+    while degree_list[2] != []:
+        degree_two_rule.counter += 1
+        vertex = degree_list[2][0]
+        [u, w] = get_all_neighbors(vertex)
+        if w in g[u][2]:
+            del_vert([vertex, u, w])
+            S_kern += [u, w]
+        else:
+            merged_point = merge_vert(vertex, u, w)
+            S_kern.append(vertex)
+    return S_kern
+
+
+def append_to_S(S, vertices):
+    for vertex in vertices:
+        if type(vertex) is str:
+            S.append(vertex)
+        else:
+            v, u, w = vertex
+            S = del_from_S(S,[v])
+            for x in [u, w]:
+                S = append_to_S(S, [x])
+    return S
+
+
+def del_from_S(S, vertices):
+    for vertex in vertices:
+        if type(vertex) is str:
+            S.remove(vertex)
+        else:
+            v, u, w = vertex
+            S = append_to_S(S, [v])
+            for x in [u, w]:
+                S = del_from_S(S, [x])
+    return S
+
+
+def correct_output(S):
+    S_new = []
+    for vertex in S:
+        S_new = append_to_S(S_new, [vertex])
+    return S_new
+
 
 def kernalization():
     """
@@ -209,8 +337,8 @@ def kernalization():
     # Execute reduction rules:
     degree_zero_rule()
     S_kern, _ = degree_one_rule()
-    # S_kern_two, _, _ = degree_two_rule()
-    # S_kern += S_kern_two
+    S_kern_two, _, _ = degree_two_rule()
+    S_kern += S_kern_two
     # S_kern_dom, _ = domination_rule()
     # S_kern += S_kern_dom
     return S_kern
@@ -255,7 +383,7 @@ def vc_cplex():
     """
     degree_zero_rule.counter = 0
     degree_one_rule.counter = 0
-    # degree_two_rule.counter = 0
+    degree_two_rule.counter = 0
     # domination_rule.counter = 0
     kernalization.counter = 0
     S = []
@@ -266,6 +394,7 @@ def vc_cplex():
             S_kern = kernalization()
             if S_kern == []: break
             S += S_kern
+    correct_output(S)
     print_result(S)
     ###### CPLEX
     start_cplex = time.time()
