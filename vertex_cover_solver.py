@@ -352,7 +352,7 @@ def bigger_than(neigh, vertex):
             return True
         if type(vertex) == tuple and type(neigh) == str:
             return False
-        if vertex[0] == neigh[0] and vertex[1] == neigh[1]
+        if vertex[0] == neigh[0] and vertex[1] == neigh[1]:
             return bigger_than(vertex[2], neigh[2])    
         elif vertex[0] == neigh[0]:
             return bigger_than(vertex[1], neigh[1])
