@@ -433,9 +433,12 @@ def vc_cplex():
         #print the solution 
         numcols = prob.variables.get_num()
         x = prob.solution.get_values()
+        S_mip = []
         for j in range(numcols):
             if x[j] == 1:
-                print(my_colnames[j])
+                S_mip.append(my_colnames[j])
+        correct_output(S_mip)
+        print_result(S)
     end = time.time()
     print("#Kern timing: %s" % (start_cplex-start_kern))
     print("#Cplex timing: %s" % (end-start_cplex))   
