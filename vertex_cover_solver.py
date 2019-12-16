@@ -337,7 +337,7 @@ def kernalization():
     # Execute reduction rules:
     degree_zero_rule()
     S_kern, _ = degree_one_rule()
-    S_kern_two, _, _ = degree_two_rule()
+    S_kern_two= degree_two_rule()
     S_kern += S_kern_two
     # S_kern_dom, _ = domination_rule()
     # S_kern += S_kern_dom
