@@ -412,6 +412,7 @@ def vc_cplex():
             S += S_kern
     correct_output(S)
     print_result(S)
+    print('##################################')
     ###### CPLEX
     start_cplex = time.time()
     if not is_edgeless():
