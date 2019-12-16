@@ -438,7 +438,7 @@ def vc_cplex():
             if x[j] == 1:
                 S_mip.append(my_colnames[j])
         correct_output(S_mip)
-        print_result(S)
+        print_result(S_mip)
     end = time.time()
     print("#Kern timing: %s" % (start_cplex-start_kern))
     print("#Cplex timing: %s" % (end-start_cplex))   
