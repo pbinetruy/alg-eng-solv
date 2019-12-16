@@ -81,7 +81,7 @@ def print_result(vertices):
 
 get_data()
 
-print g
+print(g)
 
 def is_edgeless():
     """
