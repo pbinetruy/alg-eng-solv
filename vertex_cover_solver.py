@@ -81,8 +81,6 @@ def print_result(vertices):
 
 get_data()
 
-print(g)
-
 def is_edgeless():
     """
     INPUT: None
@@ -385,7 +383,7 @@ def mipParam():
     #Actual rows are going to be filled during the for loop
     rows = []
     for vertex in g:
-        my_colnames.append("%s" % (vertex))
+        my_colnames.append("{0}".format(vertex))
         for neigh in g[vertex][2]:
             if bigger_than(neigh, vertex):
                 my_rownames.append("e %s %s" % (vertex,neigh))
