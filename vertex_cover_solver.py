@@ -343,6 +343,21 @@ def kernalization():
     # S_kern += S_kern_dom
     return S_kern
 
+def bigger_than(neigh, vertex):
+    try:
+        result = neigh > vertex
+        return result
+    except:
+        if type(vertex) == str and type(neigh) == tuple:
+            return True
+        if type(vertex) == tuple and type(neigh) == str:
+            return False
+        if vertex[0] == neigh[0] and vertex[1] == neigh[1]
+            return bigger_than(vertex[2], neigh[2])    
+        elif vertex[0] == neigh[0]:
+            return bigger_than(vertex[1], neigh[1])
+        return bigger_than(vertex[0], neigh[0]) 
+
 
 
 def mipParam():
@@ -370,7 +385,7 @@ def mipParam():
     for vertex in g:
         my_colnames.append(vertex)
         for neigh in g[vertex][2]:
-            if neigh > vertex:
+            if bigger_than(neigh, vertex):
                 my_rownames.append("e %s %s" % (vertex,neigh))
                 rows.append([[vertex,neigh],[1,1]])
     return my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows
