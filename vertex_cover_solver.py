@@ -412,6 +412,9 @@ def vc_cplex():
             S += S_kern
     ###### CPLEX
     start_cplex = time.time()
+    if is_edgeless():
+        correct_output(S)
+        print_result(S)
     if not is_edgeless():
         #get parameters of the CPLEX problem
         my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows = mipParam()
