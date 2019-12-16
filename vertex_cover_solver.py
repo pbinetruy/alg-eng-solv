@@ -376,8 +376,8 @@ def mipParam():
         my_colnames.append("{0}".format(vertex))
         for neigh in g[vertex][2]:
             if bigger_than(neigh, vertex):
-                my_rownames.append("e %s %s" % (vertex,neigh))
-                rows.append([[vertex,neigh],[1,1]])
+                my_rownames.append("e {0} {1}".format(vertex,neigh))
+                rows.append([["{0}".format(vertex),"{0}".format(neigh)],[1,1]])
     nb_col = len(my_colnames)
     nb_row = len(my_rownames)
     #Objective function is sum with all factors set to 1
