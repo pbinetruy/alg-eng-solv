@@ -385,7 +385,7 @@ def mipParam():
     #Actual rows are going to be filled during the for loop
     rows = []
     for vertex in g:
-        my_colnames.append(chr(vertex))
+        my_colnames.append("%s" % (vertex))
         for neigh in g[vertex][2]:
             if bigger_than(neigh, vertex):
                 my_rownames.append("e %s %s" % (vertex,neigh))
