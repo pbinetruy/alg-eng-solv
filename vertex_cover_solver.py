@@ -366,17 +366,7 @@ def mipParam():
     Under the assumption that all lists of neighbors are correctly updated, returns all the necessary objects to run CPLEX
     OUTPUT: my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows
     """
-    global nb_vertices
-    global nb_edges
-    #Objective function is sum with all factors set to 1
-    my_obj = [1]*nb_vertices
-    #all variables bounded by 0 (default) and 1
-    my_ub = [1]*nb_vertices
-    #All variables are integers
-    my_ctype = 'I'*nb_vertices
-    #each edge is a greater-than 1 constraint 
-    my_rhs = [1]*nb_edges
-    my_sense = 'G'*nb_edges
+    
     #name of the vertices and of the columns are left to fill
     my_colnames = []
     my_rownames = []
@@ -388,6 +378,17 @@ def mipParam():
             if bigger_than(neigh, vertex):
                 my_rownames.append("e %s %s" % (vertex,neigh))
                 rows.append([[vertex,neigh],[1,1]])
+    nb_col = len(my_colnames)
+    nb_row = len(my_rownames)
+    #Objective function is sum with all factors set to 1
+    my_obj = [1]*nb_col
+    #all variables bounded by 0 (default) and 1
+    my_ub = [1]*nb_col
+    #All variables are integers
+    my_ctype = 'I'*nb_col
+    #each edge is a greater-than 1 constraint 
+    my_rhs = [1]*nb_row
+    my_sense = 'G'*nb_row
     return my_obj, my_ub, my_ctype, my_colnames, my_rhs, my_rownames, my_sense, rows
 
 def vc_cplex():
