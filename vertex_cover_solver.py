@@ -256,7 +256,7 @@ def merge_vert(vertex, u, w):
     global degree_list
     global max_degree
     merged_point = (vertex, u, w)
-    real_del_vert([vertex, u, w])
+    really_del_vert([vertex, u, w])
     if merged_point in g:
         un_del_vert([merged_point])
         return merged_point
