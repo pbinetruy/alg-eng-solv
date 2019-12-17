@@ -1,0 +1,10 @@
+file,time_in_seconds,kern timing,cplex timing,finished,solution_size_verified
+random_super_small/000002_000000000002.input,0.09s,0,9.5367431640625,1.9073486328125,1,correct
+random_super_small/000900_000000002700.input,1.15s,872,0.09283304214477539,0.8260211944580078,1,correct
+random_super_small/001000_000000006000.input,1.12s,989,0.5115218162536621,0.0008864402770996094,1,correct
+dimacs_super_small/football.graph.dimacs,0.16s,94,0.0012869834899902344,0.053321123123168945,1,correct
+dimacs_super_small/polblogs.graph.dimacs,0.24s,560,0.032872915267944336,0.05902361869812012,1,correct
+dimacs_super_small/crack.graph.dimacs,1.23s,5590,0.9152956008911133,0.13782048225402832,1,>>INCORRECT<<
+snap_super_small/as20000102.txt.dimacs,0.36s,1052,0.15847110748291016,0.039476871490478516,1,correct
+snap_super_small/p2p-Gnutella08.txt.dimacs,0.35s,2054,0.150054931640625,0.037247419357299805,1,correct
+snap_super_small/p2p-Gnutella06.txt.dimacs,0.50s,3405,0.2717289924621582,0.03884387016296387,1,correct
