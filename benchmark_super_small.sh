@@ -56,7 +56,8 @@ run_ce_solver()
 			fi
 		
 			k=$(grep -ve "^#" prog_out.txt | wc -l)
-			recursiveSteps=$(grep -e "#recursive steps:" prog_out.txt | sed -e 's/.*recursive steps: \([0-9]*\).*/\1/' )
+			kernTiming=$(grep -e "#Kern timing:" prog_out.txt | sed -e 's/.*Kern timing: \([0-9]*\).*/\1/' )
+			cplexTiming=$(grep -e "#Cplex timing:" prog_out.txt | sed -e 's/.*Cplex timing: \([0-9]*\).*/\1/' )
 			cat prog_out.txt >> $LOG
 
 			rm -f prog_out.txt
@@ -78,7 +79,7 @@ run_ce_solver()
 				fi
 			fi
 			
-			echo -e $f"\t"$time"s\t"$k"\t"$recursiveSteps"\t"$finished"\t"$verify
+			echo -e $f"\t"$time"s\t"$k"\t"$kernTiming"\t"$cplexTiming"\t"$finished"\t"$verify
 			echo "" >> $LOG
 			
 			rm -f time.txt
@@ -105,13 +106,13 @@ maxSec=43200									# overall allowed time for the whole script
 maxSecPerInstance=300							# allowed time (in seconds) for one instance
 maxNotSolved=10								# no of instances the program is allowed to fail to solve. If reached, then the script is aborted
 
-echo "run random instances $PROGRAMM_NAME (Tab-separated columns: File, Time in seconds, solution size, recursive steps, finished, solution size verified)"
+echo "run random instances $PROGRAMM_NAME (Tab-separated columns: File, Time in seconds, solution size, kern timing, cplex timing, finished, solution size verified)"
 run_ce_solver "$PROGRAMM_NAME" $LOG $maxSec $maxSecPerInstance $maxNotSolved 0
 
-echo "run dimacs instances $PROGRAMM_NAME (Tab-separated columns: File, Time in seconds, solution size, recursive steps, finished, solution size verified)"
+echo "run dimacs instances $PROGRAMM_NAME (Tab-separated columns: File, Time in seconds, solution size, kern timing, cplex timing, finished, solution size verified)"
 run_ce_solver "$PROGRAMM_NAME" $LOG $maxSec $maxSecPerInstance $maxNotSolved 1
 
-echo "run snap instances $PROGRAMM_NAME (Tab-separated columns: File, Time in seconds, solution size, recursive steps, finished, solution size verified)"
+echo "run snap instances $PROGRAMM_NAME (Tab-separated columns: File, Time in seconds, solution size, kern timing, cplex timing, finished, solution size verified)"
 run_ce_solver "$PROGRAMM_NAME" $LOG $maxSec $maxSecPerInstance $maxNotSolved 2
 
 

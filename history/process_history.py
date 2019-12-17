@@ -17,16 +17,8 @@ def transfer_data(current_history_file):
         header = [
             'file',
             'time_in_seconds',
-            'solution_size',
-            'recursive_steps',
-            'first_lower_bound_difference',
-            'high_degree_rules',
-            'degree_zero_rules',
-            'extreme_reduction_rules',
-            'degree one rules',
-            'degree two rules',
-            'domination rules',
-            'lower_bounds',
+            'kern timing',
+            'cplex timing',
             'finished',
             'solution_size_verified'
         ]

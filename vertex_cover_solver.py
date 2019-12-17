@@ -440,8 +440,8 @@ def vc_cplex():
         correct_output(S)
         print_result(S)
     end = time.time()
-    print("#Kern timing: %s" % (start_cplex-start_kern))
-    print("#Cplex timing: %s" % (end-start_cplex))   
+    print("#Kern timing: %s" % round(start_cplex-start_kern, 2))
+    print("#Cplex timing: %s" % round(end-start_cplex, 2))   
     print("#degree zero rules: %s" % degree_zero_rule.counter)
     print("#degree one rules: %s" % degree_one_rule.counter) 
 
