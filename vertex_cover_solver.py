@@ -438,11 +438,11 @@ def vc_cplex():
     S = []
     ###### Kernelization
     start_kern = time.time()
-    if not is_edgeless():
-        while True:
-            S_kern = kernalization()
-            if S_kern == []: break
-            S += S_kern
+    # if not is_edgeless():
+    #     while True:
+    #         S_kern = kernalization()
+    #         if S_kern == []: break
+    #         S += S_kern
     ###### CPLEX
     start_cplex = time.time()
     if is_edgeless():
