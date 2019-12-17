@@ -57,7 +57,7 @@ run_ce_solver()
 		
 			k=$(grep -ve "^#" prog_out.txt | wc -l)
 			kernTiming=$(grep -e "#Kern timing:" prog_out.txt | sed -e 's/.*Kern timing: \([0-9]*\.[0-9]*\).*/\1/' )
-			cplexTiming=$(grep -e "#Cplex timing:" prog_out.txt | sed -e 's/.*Cplex timing: \([0-9]*\).*/\1/' )
+			cplexTiming=$(grep -e "#Cplex timing:" prog_out.txt | sed -e 's/.*Cplex timing: \([0-9]*\.[0-9]*\).*/\1/' )
 			cat prog_out.txt >> $LOG
 
 			rm -f prog_out.txt
