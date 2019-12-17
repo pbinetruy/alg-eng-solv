@@ -1,0 +1,39 @@
+201912172105_run_history
+run random instances python3 vertex_cover_solver.py (Tab-separated columns: File, Time in seconds, solution size, kern timing, cplex timing, finished, solution size verified)
+random_small/000002_000000000002.input	0.09s	0	0.0	0.0	1	correct
+random_small/000026_000000000260.input	0.11s	25	0.0	0.0	1	correct
+random_small/000070_000000000084.input	0.10s	12	0.0	0.0	1	correct
+random_small/000085_000000000850.input	0.13s	82	0.01	0.0	1	correct
+random_small/000100_000000001000.input	0.12s	96	0.01	0.0	1	correct
+random_small/000300_000000003000.input	0.25s	296	0.07	0.0	1	correct
+random_small/000400_000000004000.input	0.64s	396	0.14	0.0	1	correct
+random_small/000500_000000005000.input	0.56s	498	0.24	0.0	1	correct
+random_small/000800_000000008000.input	1.60s	796	0.77	0.0	1	correct
+random_small/000900_000000002700.input	1.11s	872	0.04	0.82	1	correct
+random_small/001000_000000006000.input	1.14s	989	0.52	0.0	1	correct
+run dimacs instances python3 vertex_cover_solver.py (Tab-separated columns: File, Time in seconds, solution size, kern timing, cplex timing, finished, solution size verified)
+dimacs_small/karate.graph.dimacs	0.13s	14	0.0	0.04	1	correct
+dimacs_small/dolphins.graph.dimacs	0.13s	34	0.0	0.03	1	correct
+dimacs_small/adjnoun.graph.dimacs	0.16s	59	0.0	0.04	1	correct
+dimacs_small/polbooks.graph.dimacs	0.14s	62	0.0	0.04	1	correct
+dimacs_small/football.graph.dimacs	0.16s	94	0.0	0.05	1	correct
+dimacs_small/email.graph.dimacs	0.23s	594	0.01	0.09	1	correct
+dimacs_small/uk.graph.dimacs	20.55s	2626	0.02	20.39	1	correct
+dimacs_small/data.graph.dimacs	2.57s	2161	0.0	1.99	1	correct
+dimacs_small/polblogs.graph.dimacs	0.32s	560	0.02	0.13	1	correct
+dimacs_small/memplus.graph.dimacs	1.54s	10072	0.01	1.14	1	correct
+dimacs_small/fe_sphere.graph.dimacs	217.55s	10924	0.0	217.27	1	correct
+dimacs_small/t60k.graph.dimacs	182.36s	30288	0.0	181.83	1	correct
+dimacs_small/astro-ph.graph.dimacs	2.64s	10230	0.21	1.45	1	correct
+dimacs_small/wing.graph.dimacs	s	0			0	
+run snap instances python3 vertex_cover_solver.py (Tab-separated columns: File, Time in seconds, solution size, kern timing, cplex timing, finished, solution size verified)
+snap_small/as20000102.txt.dimacs	0.42s	1052	0.17	0.04	1	correct
+snap_small/email-Eu-core.txt.dimacs	0.60s	579	0.01	0.42	1	correct
+snap_small/p2p-Gnutella08.txt.dimacs	0.39s	2054	0.15	0.04	1	correct
+snap_small/p2p-Gnutella06.txt.dimacs	0.53s	3405	0.28	0.04	1	correct
+snap_small/p2p-Gnutella04.txt.dimacs	0.71s	4348	0.44	0.04	1	correct
+snap_small/soc-sign-Slashdot081106.txt.dimacs	58.62s	19614	27.83	0.13	1	correct
+snap_small/soc-sign-Slashdot090221.txt.dimacs	66.52s	21314	30.67	0.18	1	correct
+snap_small/loc-gowalla_edges.txt.dimacs	257.57s	84222	242.08	7.31	1	correct
+snap_small/amazon0302.txt.dimacs	224.97s	168541	58.73	161.39	1	>>INCORRECT<<
+snap_small/com-amazon.ungraph.txt.dimacs	s	0			0	
