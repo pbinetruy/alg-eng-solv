@@ -25,15 +25,23 @@ def transfer_data(current_history_file):
         writer.writerow(header)
     # Iterate through every line of txt file:
     for line in sys.stdin:
-        for starter in ["random/", "dimacs/", "snap/"]:
+        for starter in ["random", "dimacs", "snap"]:
             # If row contains statistics:
             if line.startswith(starter):
                 # Write data in csv file:
                 with open(current_history_file, 'a') as sheet:
                     writer = csv.writer(sheet)
                     line_values = line.split()
+                    line_values[0].replace('random_small', 'random')
+                    line_values[0].replace('random_super_small', 'random')
+                    line_values[0].replace('dimacs_small', 'dimacs')
+                    line_values[0].replace('dimacs_super_small', 'dimacs')
+                    line_values[0].replace('snap_small', 'snap')
+                    line_values[0].replace('snap_super_small', 'snap')
                     if len(line_values) < len(header):
-                        line_values.insert(3,'')
+                        line_values.insert(2,'')
+                        line_values.insert(2,'')
+                        line_values.insert(5,'')
                     writer.writerow(line_values)
                 break
 
