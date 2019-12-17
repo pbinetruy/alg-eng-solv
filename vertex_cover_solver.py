@@ -293,6 +293,10 @@ def degree_two_rule():
             merged_point = merge_vert(vertex, u, w)
             S_kern.append(vertex)
             really_del_vert([vertex, u, w])
+        degree_zero_rule()
+        S_kern1, _ = degree_one_rule()
+        degree_zero_rule()
+        S_kern += S_kern1
     return S_kern
 
 
@@ -339,6 +343,10 @@ def domination_rule():
                     really_del_vert([adj_vert])
                     S_kern.append(adj_vert)
                     break
+            degree_zero_rule()
+            S_kern1, _ = degree_one_rule()
+            degree_zero_rule()
+            S_kern += S_kern1
     return S_kern
 
 
@@ -361,6 +369,7 @@ def kernalization():
     # Execute reduction rules:
     degree_zero_rule()
     S_kern, _ = degree_one_rule()
+    degree_zero_rule()
     S_kern_two= degree_two_rule()
     S_kern += S_kern_two
     S_kern_dom = domination_rule()
@@ -464,8 +473,8 @@ def vc_cplex():
         correct_output(S)
         print_result(S)
     end = time.time()
-    print("#Kern timing: %s" % (start_cplex-start_kern))
-    print("#Cplex timing: %s" % (end-start_cplex))   
+    print("#Kern timing: %s" % round(start_cplex-start_kern,2))
+    print("#Cplex timing: %s" % round(end-start_cplex,2))   
     print("#degree zero rules: %s" % degree_zero_rule.counter)
     print("#degree one rules: %s" % degree_one_rule.counter) 
 
