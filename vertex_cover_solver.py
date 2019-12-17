@@ -320,6 +320,30 @@ def del_from_S(S, vertices):
     return S
 
 
+
+def domination_rule():
+    S_kern = []
+    for degree in range(3, max_degree):
+        for vertex in degree_list[degree]:
+            neighborhood = [vertex]
+            lowest_degree = max_degree + 1
+            for adj_vert in g[vertex][2]:
+                if not g[adj_vert][0]:
+                    neighborhood.append(adj_vert)
+                    if g[adj_vert][1] < lowest_degree:
+                        lowest_degree = g[adj_vert][1]
+                        low_degree_neighbor = adj_vert
+            for adj_vert in g[low_degree_neighbor][2] + [low_degree_neighbor]:
+                if adj_vert != vertex and adj_vert in neighborhood and all(u in ([adj_vert] + g[adj_vert][2]) for u in neighborhood):
+                    domination_rule.counter += 1
+                    really_del_vert([adj_vert])
+                    S_kern.append(adj_vert)
+                    break
+    return S_kern
+
+
+
+
 def correct_output(S):
     S_new = []
     for vertex in S:
@@ -337,10 +361,10 @@ def kernalization():
     # Execute reduction rules:
     degree_zero_rule()
     S_kern, _ = degree_one_rule()
-    S_kern_two= degree_two_rule()
-    S_kern += S_kern_two
-    # S_kern_dom, _ = domination_rule()
-    # S_kern += S_kern_dom
+    # S_kern_two= degree_two_rule()
+    # S_kern += S_kern_two
+    S_kern_dom = domination_rule()
+    S_kern += S_kern_dom
     return S_kern
 
 def bigger_than(neigh, vertex):
@@ -400,7 +424,7 @@ def vc_cplex():
     degree_zero_rule.counter = 0
     degree_one_rule.counter = 0
     degree_two_rule.counter = 0
-    # domination_rule.counter = 0
+    domination_rule.counter = 0
     kernalization.counter = 0
     S = []
     ###### Kernelization
